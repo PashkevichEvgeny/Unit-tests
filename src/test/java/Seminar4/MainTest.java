@@ -1,0 +1,42 @@
+package Seminar4;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+import java.util.*;
+
+
+class MainTest {
+
+    /**
+     * 4.0. Проверка работы Mockito
+     */
+     @Test
+    public void simpleTest() {
+        // Создаем мок
+        List<String> mockedList = mock(List.class);
+
+        // Используем мок
+        mockedList.add("one");
+        mockedList.clear();
+
+        // Проверяем, что методы были вызваны
+        verify(mockedList).add("one");
+        verify(mockedList).clear();
+    }
+
+    /**
+     * 4.1. Создать мок-объект Iterator, настроить поведение так,
+     * чтобы за два вызова next() Iterator вернул два слова “Hello World”,
+     * и проверить это поведение с помощью утверждений
+     */
+    @Test
+    void helloTest(){
+        Iterator iterator = mock(Iterator.class);
+        when(iterator.next()).thenReturn("Hello").thenReturn("World");
+        String result = iterator.next() + " " + iterator.next();
+        assertEquals("Hello World", result);
+    }
+
+}
